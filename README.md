@@ -14,7 +14,7 @@ The scripts used for differential expression testing in the pilot and at-scale e
 
 Each of these two scripts has the same interface, for example::
 ```
-Rscript get_deg.pilot.R cds_object.rds \
+Rscript get_deg.pilot.R GSE120861_pilot_highmoi_screen.cds.rds \
 grna_group \
 gene_gRNAgroup_pair_table.pilot.txt \
 output_file.txt
@@ -22,7 +22,7 @@ output_file.txt
 
 Note that for the `at-scale` experiment, in order to cut down on computational costs, we used a random subset of 50,000 cells from the experiment as the reference set rather than including all cells. This means that all cells with a guide to the specified target are included, but only cells in the 50,000 cell reference are included if they do not have a guide. This means that the call to this script is slightly different:
 ```
-Rscript get_deg.pilot.R cds_object.rds \
+Rscript get_deg.pilot.R GSE120861_at_scale_screen.cds.rds \
 grna_group \
 gene_gRNAgroup_pair_table.at_scale.txt \
 output_file.txt \
@@ -32,9 +32,11 @@ output_file.txt \
 These scripts run the relevant DEG tests for a single target at a time (corresponding to `grna_group`). We then parallelized these over all grna_groups via our cluster. A list of all ggrna_group values for the pilot and at-scale screens are provided in the `Data` section below as a reference.
 
 ## Data
+- `GSE120861_at_scale_screen.cds.rds`: available on GEO GSE120861
+- `GSE120861_pilot_highmoi_screen.cds.rds`: available on GEO GSE120861 
 - `grna_groups.pilot.txt`: TODO desc
 - `grna_groups.at_scale.txt`: TODO
-- `50k_reference_cells.rds`: TODO
+- `50k_reference_cells.rds`: 50,000 cell subset used in atscale screen differential expression tests
 - `gene_gRNAgroup_pair_table.pilot.txt`: TODO
 - `gene_gRNAgroup_pair_table.at_scale.txt`: TODO
 - `all_deg_results.pilot.txt`: TODO
