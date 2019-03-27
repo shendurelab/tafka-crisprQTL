@@ -5,9 +5,3 @@ cp /net/trapnell/vol1/ajh24/proj/2017crispr_qtl/data/reads/2018_04_24_K6000/1710
 
 # Copy over the custom monocle code
 cp ~gasperim/PROJECTS/170803_CRISPRQTL/bin/custom_monocle_da_functions.R .
-
-#Copy over the 50k reference cell set used for the at-scale screen DEG calling
-cp /net/trapnell/vol1/ajh24/proj/2017crispr_qtl/data/reads/2018_04_24_K6000/reference_cells.50K.rds .
-
-mv reference_cells.50K.rds 50k_reference_cells.rds
-
