@@ -1,7 +1,5 @@
 # tafka-crisprQTL
 Code associated with tafka-crisprQTL (Gasperini, et al. 2019)
-One data file missing from GEO (all candidate enhancer x expressed genes tested in the at-scale screen; only hits are provided in the manuscript).
-
 
 ## Scripts
 The following scripts/files were used in differential expression testing. We also include information where to access relevant data files in the `Data` section below.
