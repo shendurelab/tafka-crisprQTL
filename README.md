@@ -1,5 +1,6 @@
 # tafka-crisprQTL
 Code associated with tafka-crisprQTL (Gasperini, et al. 2019)
+One data file missing from GEO (all candidate enhancer x expressed genes tested in the at-scale screen; only hits are provided in the manuscript).
 
 
 ## Scripts
@@ -46,6 +47,8 @@ Available GEO GSE120861.
 - `zero_inflated_outlier_genes_to_exclude.pilot.txt`: Same as above, but a list of outlier genes we identified from the `pilot_highmoi_screen.cds.rds`.
 
 \* An empirical P-value was defined for each gene-gRNAgroup pair test that decreased the candidate target gene's expression. The empirical P-value was defined as: [(the number of NTCs with a smaller P-value than that test’s raw P-value) + 1] divided by [the total number of NTCs tests + 1].
+
+- `Gasperini2019.at_scale_screen.cand_enhancer_x_exprsd_genes.200503.csv`:  The gene x candidate enhancers interactions we used to call hits from the 'at-scale' experiment. There are 78,562 interactions here, but in the manuscript we state 78,776 were tested - this latter sum total refers to unique sites targeted across both the pilot and 'at-scale' experiments. In the "at scale" experiment from which we drew hits, there were 78,562 unique enhancer-x-gene interactions. Additionally, we state we targeted 5,779 in candidate enhancers in the 'at-scale' experiment: in hindsight, this should have been stated as 5,723 (56 candidate enhancers we targeted did not have any genes above the cell % expression threshold in the surrounding 2Mb region. Please see manuscript for details re: expression threshold). Only 5,723 are included in this file.
 
 ## Required R Packages
 The following packages are required to run the scripts:
