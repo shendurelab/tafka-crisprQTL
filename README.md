@@ -51,6 +51,7 @@ Available GEO GSE120861.
 
 -  `at_scale_screen.phenoData.txt.gz`: Monocle pData object used to track gRNA-cell associations. The column names (in order) and their associated explanations:
 
+```
 sample: sample ID
 cell: each cell's identifier, as assigned by cell ranger
 total_umis: total UMIs assigned to the cell
@@ -70,8 +71,9 @@ batch_ID2: reagent lot prep batch
 batch_ID3: within batch chip ID
 batch_ID4: within chip lane ID
 mito: percentage mitochondrial
+```
 
-To parse the gRNA-cell associations, you can use either of two columns: gRNAsequences or gRNAgroups. Hre's a helpful line that could help you parse the gRNA-cell association columns.
+To parse the gRNA-cell associations using this file, you can use either of two columns: gRNAsequences or gRNAgroups. Here's a helpful line that could help you parse the gRNA-cell association columns.
 ```
     pData(gene_cds)$gRNA_detected <- grepl(paste0('(^|_)', gRNA_group, '(_|$)'), GSE120861_at_scale_screen.phenoData.df$gRNAgroups_or_gRNAsequences_column) #this outputs a true/false input if a gRNA has been detected
 ```
