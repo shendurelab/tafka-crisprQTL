@@ -48,6 +48,37 @@ Available GEO GSE120861.
 
 - `Gasperini2019.at_scale_screen.cand_enhancer_x_exprsd_genes.200503.csv`:  The gene x candidate enhancers interactions we used to call hits from the 'at-scale' experiment. There are 78,562 interactions here, but in the manuscript we state 78,776 were tested - this latter sum total refers to unique sites targeted across both the pilot and 'at-scale' experiments. In the "at scale" experiment from which we drew hits, there were 78,562 unique enhancer-x-gene interactions. Additionally, we state we targeted 5,779 in candidate enhancers in the 'at-scale' experiment: in hindsight, this should have been stated as 5,723 (56 candidate enhancers we targeted did not have any genes above the cell % expression threshold in the surrounding 2Mb region. Please see manuscript for details re: expression threshold). Only 5,723 are included in this file.
 
+
+-  `at_scale_screen.phenoData.txt.gz`: Monocle pData object used to track gRNA-cell associations. The column names (in order) and their associated explanations:
+
+sample: sample ID
+cell: each cell's identifier, as assigned by cell ranger
+total_umis: total UMIs assigned to the cell
+Size_Factor: metric typically used by Monocle to account for variation in total UMI counts across cells
+gRNAgroups: A gRNAgroup is defined as all the gRNAs that are targeting the same candidate enhancer or positive control site (usually 2 gRNAs designed per group, see Gasperini et al methods for further explanation). If a gRNAgroup was detected in this cell by our analysis, its name is present in this string. The GEO file that contains the gRNAgroup names and their associated sequences for the at-scale screen is: GSE120861_grna_groups.at_scale.txt.gz.
+gRNAgroups_dups: If both the gRNAs in a gRNAgroup are present in the same cell, the gRNAgroup's name is present twice in this column (a kind of silly column).
+gRNAsequences: If a gRNAsequence is detected in this cell by our analysis, its name is present in this string.
+gRNA_read_count: number of reads associated with the gRNAs
+gRNA_umi_count: UMIs associated w the gRNAs
+[the remaining columns were output by a tool we use, but probably are not generally useful:]
+gRNAproportion: proportion of total reads that match gRNAs in this list - note we do not suggest using this column as it appears
+guide_count: number of gRNAs detected in the cell by our analysis
+sample_directory: duplicate of the sample ID column
+bc_file: guide barcode file ID
+batch_ID1: overall prep batch
+batch_ID2: reagent lot prep batch
+batch_ID3: within batch chip ID
+batch_ID4: within chip lane ID
+mito: percentage mitochondrial
+
+To parse the gRNA-cell associations, you can use either of two columns: gRNAsequences or gRNAgroups. Hre's a helpful line that could help you parse the gRNA-cell association columns.
+```
+    pData(gene_cds)$gRNA_detected <- grepl(paste0('(^|_)', gRNA_group, '(_|$)'), GSE120861_at_scale_screen.phenoData.df$gRNAgroups_or_gRNAsequences_column) #this outputs a true/false input if a gRNA has been detected
+```
+
+If you would like to convert this into a matrix representation, you could do something like the following -- go through each unique gRNAgroup in the gRNAgroup-sequence file (or each guide sequence, as found in GSE120861_grna_groups.at_scale.txt.gz) and ask which cells are annotated as having a guide belonging to the group (or the guide itself) using the regex above. This would give you a vector corresponding to the 0/1 status for that group across all cells. If you do this for all groups you would be able to construct the full cell by group (or gRNA sequence) matrix.
+
+
 ## Required R Packages
 The following packages are required to run the scripts:
 ```
